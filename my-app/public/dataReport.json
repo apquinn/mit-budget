@@ -1,0 +1,182 @@
+[
+  {
+    "category": "Home - repair",
+    "date": "4/1/2022",
+    "current": 288,
+    "budget": 200
+  },
+  {
+    "category": "Home - repair",
+    "date": "5/1/2022",
+    "current": 190,
+    "budget": 200
+  },
+  {
+    "category": "Home - repair",
+    "date": "6/1/2022",
+    "current": 156,
+    "budget": 200
+  },
+  {
+    "category": "Auto repair",
+    "date": "6/1/2022",
+    "current": 320,
+    "budget": 200
+  },
+  {
+    "category": "Auto repair",
+    "date": "7/1/2022",
+    "current": 210,
+    "budget": 200
+  },
+  {
+    "category": "Auto repair",
+    "date": "8/1/2022",
+    "current": 245,
+    "budget": 200
+  },
+  {
+    "category": "Auto repair",
+    "date": "9/1/2022",
+    "current": 230,
+    "budget": 200
+  },
+  {
+    "category": "Auto repair",
+    "date": "10/1/2022",
+    "current": 220,
+    "budget": 200
+  },
+  {
+    "category": "Auto repair",
+    "date": "11/1/2022",
+    "current": 225,
+    "budget": 200
+  },
+  {
+    "category": "Auto repair",
+    "date": "12/1/2022",
+    "current": 231,
+    "budget": 200
+  },
+  {
+    "category": "Auto repair",
+    "date": "1/1/2023",
+    "current": 225,
+    "budget": 300
+  },
+  {
+    "category": "Auto repair",
+    "date": "2/1/2023",
+    "current": -200,
+    "budget": 300
+  },
+  {
+    "category": "Auto repair",
+    "date": "3/1/2023",
+    "current": 232,
+    "budget": 300
+  },
+  {
+    "category": "Auto repair",
+    "date": "4/1/2023",
+    "current": 88,
+    "budget": 300
+  },
+  {
+    "category": "Auto repair",
+    "date": "5/1/2023",
+    "current": 282,
+    "budget": 300
+  },
+  {
+    "category": "Auto repair",
+    "date": "6/1/2023",
+    "current": 165,
+    "budget": 300
+  },
+  {
+    "category": "Auto repair",
+    "date": "7/1/2023",
+    "current": 215,
+    "budget": 300
+  },
+  {
+    "category": "Auto repair",
+    "date": "8/1/2023",
+    "current": 226,
+    "budget": 300
+  },
+  {
+    "category": "Auto repair",
+    "date": "9/1/2023",
+    "current": 285,
+    "budget": 300
+  },
+  {
+    "category": "Auto repair",
+    "date": "10/1/2023",
+    "current": 250,
+    "budget": 300
+  },
+  {
+    "category": "Auto repair",
+    "date": "11/1/2023",
+    "current": 325,
+    "budget": 300
+  },
+  {
+    "category": "Auto repair",
+    "date": "12/1/2023",
+    "current": 285,
+    "budget": 390
+  },
+  {
+    "category": "Auto repair",
+    "date": "1/1/2024",
+    "current": 285,
+    "budget": 390
+  },
+  {
+    "category": "Auto repair",
+    "date": "2/1/2024",
+    "current": 260,
+    "budget": 390
+  },
+  {
+    "category": "Auto repair",
+    "date": "3/1/2024",
+    "current": 266,
+    "budget": 390
+  },
+  {
+    "category": "Auto repair",
+    "date": "4/1/2024",
+    "current": 310,
+    "budget": 390
+  },
+  {
+    "category": "Auto repair",
+    "date": "5/1/2024",
+    "current": 245,
+    "budget": 390
+  },
+  {
+    "category": "Auto repair",
+    "date": "6/1/2024",
+    "current": 255,
+    "budget": 390
+  },
+  {
+    "category": "Auto repair",
+    "date": "7/1/2024",
+    "current": 400,
+    "budget": 390
+  },
+  {
+    "category": "Auto repair",
+    "date": "8/1/2024",
+    "current": 278,
+    "budget": 390
+  }
+]

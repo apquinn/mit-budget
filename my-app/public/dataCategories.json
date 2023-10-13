@@ -1,0 +1,7 @@
+[
+  { "id": 100, "category": "Home - repair" },
+  { "id": 101, "category": "Home - electricity" },
+  { "id": 102, "category": "Home - heat" },
+  { "id": 103, "category": "Home - mortgage" },
+  { "id": 104, "category": "Auto repair" }
+]

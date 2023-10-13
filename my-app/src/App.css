@@ -1,0 +1,106 @@
+.header-wrapper {
+  margin: 0px 0px 20px 10px;
+}
+.title-wrapper {
+  margin: 15px 50px 0px 10px;
+}
+.bar-wrapper {
+  margin: 0px 50px 0px 10px;
+}
+.edit-delete-button {
+  padding: 0px;
+  border: 0px;
+}
+.item-title {
+  display: inline-block;
+  width: 70%;
+}
+.item-balance {
+  display: inline-block;
+  width: 30%;
+  text-align: right;
+}
+.item-current {
+  height: 10px;
+  background-color: red;
+  display: inline-block;
+}
+.item-budget {
+  height: 10px;
+  background-color: green;
+  display: inline-block;
+}
+.footer-wrapper {
+  margin: 20px 0px 0px 10px;
+}
+
+/********** REPORTS **********/
+.actual {
+  display: inline-block;
+  width: 20px;
+  background-color: red;
+  color: white;
+  margin: 0px 5px 0px 0px;
+  padding: 10px 0px 0px 0px;
+  position: absolute;
+  bottom: 0;
+  left: 0px;
+  text-align: left;
+  writing-mode: vertical-rl;
+  text-orientation: sideways-right;
+}
+.budget {
+  display: inline-block;
+  width: 20px;
+  background-color: green;
+  color: white;
+  padding: 10px 0px 0px 0px;
+  position: absolute;
+  bottom: 0;
+  left: 25px;
+  text-align: left;
+  vertical-align: center;
+  writing-mode: vertical-rl;
+  text-orientation: sideways-right;
+}
+.wrapper-individual {
+  display: inline-block;
+  height: 300px;
+  margin: 20px 0px 0px 25px;
+  position: relative;
+  width: 45px;
+}
+.date-month {
+  width: 45px;
+  position: absolute;
+  bottom: -25px;
+  left: 0;
+}
+.overall-balance {
+  margin: 35px 0px 0px 25px;
+}
+.wrapper-total {
+  width: 500px;
+  margin: 15px 0px 0px 25px;
+}
+.actual-total {
+  background-color: red;
+  padding-right: 10px;
+  color: white;
+  text-align: right;
+}
+.budget-total {
+  background-color: green;
+  margin: 5px 0px 0px 0px;
+  padding-right: 10px;
+  color: white;
+  text-align: right;
+}
+.boldfont {
+  font-weight: bold;
+  font-size: 24px;
+}
+#dates {
+  text-align: center;
+  margin-top: 25px;
+}

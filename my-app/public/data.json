@@ -1,0 +1,7 @@
+[
+  { "id": 1, "current": 150, "budget": 300, "title": "Auto" },
+  { "id": 2, "current": 1500, "budget": 1500, "title": "Home loan" },
+  { "id": 3, "current": 750, "budget": 1000, "title": "Groceries" },
+  { "id": 4, "current": 250, "budget": 300, "title": "Travel" },
+  { "id": 5, "current": 500, "budget": 400, "title": "Misc" }
+]
