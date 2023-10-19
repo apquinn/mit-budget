@@ -27,8 +27,8 @@ function DateRangeDropDownCat({ data, setDateCat }) {
   const loadOptions = () => {
     let result = data.map((item) => {
       if (
-        searchParams.get("dateCat") != null &&
-        item.category == searchParams.get("dateCat")
+        searchParams.get("dateCat") !== null &&
+        item.category === searchParams.get("dateCat")
       ) {
         setDateCat(item.category);
         return (
@@ -68,7 +68,7 @@ function DateRangeDropDownCat({ data, setDateCat }) {
 function DateRangeDropDownDates({ dataReport, setDateFrom, setDateTo }) {
   const onChangeHandlerDate = (event) => {
     let e = document.getElementById(event.target.id);
-    if (event.target.id == "dateSelectFrom")
+    if (event.target.id === "dateSelectFrom")
       setDateFrom(e.options[e.selectedIndex].text);
     else setDateTo(e.options[e.selectedIndex].text);
     alert("Date change: " + e.options[e.selectedIndex].text);
@@ -183,7 +183,7 @@ function DateRangeDropDownItem({ data, id, setDate, onChangeHandler }) {
   let dateToFind = "";
   let label = "From";
 
-  if (id == "dateSelectFrom") {
+  if (id === "dateSelectFrom") {
     currentDateMonth = format(new Date(), "M");
     currentDateYear = String(Number(format(new Date(), "yyyy")) - 1);
     dateToFind = currentDateMonth + "/1/" + currentDateYear;
@@ -197,7 +197,7 @@ function DateRangeDropDownItem({ data, id, setDate, onChangeHandler }) {
 
   const loadOptions = () => {
     let result = data.map((item) => {
-      if (item.date == dateToFind)
+      if (item.date === dateToFind)
         return (
           <option value={item.date} selected>
             {item.date}
@@ -286,7 +286,7 @@ export default function Reports() {
   if (!data) return "error data";
 
   let localDateCat = dateCat;
-  if (localDateCat == "") localDateCat = dataCat[0].category;
+  if (localDateCat === "") localDateCat = dataCat[0].category;
 
   return (
     <>

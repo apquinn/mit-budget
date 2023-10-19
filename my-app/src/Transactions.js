@@ -70,7 +70,7 @@ function Filters({ dataCat, data, setData }) {
   const handleSelectChange = (event) => {
     document.getElementById("Filters-Text").value = "";
     let value = document.getElementById("Filters-Select").value;
-    let localData = data.filter((item) => item.category == value);
+    let localData = data.filter((item) => item.category === value);
     setData(localData);
   };
 
@@ -120,13 +120,13 @@ function Filters({ dataCat, data, setData }) {
 }
 
 function ManageWells(toToggle) {
-  if (toToggle != "Import")
+  if (toToggle !== "Import")
     document.getElementById("Import").classList.add("is-hidden");
 
-  if (toToggle != "Filters")
+  if (toToggle !== "Filters")
     document.getElementById("Filters").classList.add("is-hidden");
 
-  if (toToggle != "Transfer")
+  if (toToggle !== "Transfer")
     document.getElementById("Transfer").classList.add("is-hidden");
 
   let e = document.getElementById(toToggle);
@@ -139,7 +139,7 @@ function Subheader({ dataCat, data, setData }) {
     ManageWells("Import");
   };
   const handleUncat = () => {
-    let localData = data.filter((item) => item.category == "");
+    let localData = data.filter((item) => item.category === "");
     setData(localData);
   };
   const handleFilters = () => {
@@ -193,7 +193,7 @@ function Category({ category, id, dataCat }) {
           <option key={"empty" + id} value=""></option>
           {dataCat.map((item) => {
             {
-              selected = item.id == category ? "selected" : "";
+              selected = item.id === category ? "selected" : "";
             }
             return (
               <option value={item.id} key={item.id} selected={selected}>
@@ -231,7 +231,7 @@ function IndividualTransactions({ dataCat, data }) {
                 />
                 {
                   (isDup =
-                    item.isDuplicate == true ? (
+                    item.isDuplicate === true ? (
                       <button
                         onClick={() => handleDuplicate(item.id)}
                         className="col-md-2 it-dup"

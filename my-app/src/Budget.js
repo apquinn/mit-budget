@@ -201,13 +201,13 @@ function AddEnvelope() {
 }
 
 function ManageWells(toToggle) {
-  if (toToggle != "ManageGroups")
+  if (toToggle !== "ManageGroups")
     document.getElementById("ManageGroups").classList.add("is-hidden");
 
-  if (toToggle != "AddEnvelope")
+  if (toToggle !== "AddEnvelope")
     document.getElementById("AddEnvelope").classList.add("is-hidden");
 
-  if (toToggle != "Transfer")
+  if (toToggle !== "Transfer")
     document.getElementById("Transfer").classList.add("is-hidden");
 
   let e = document.getElementById(toToggle);
