@@ -1,0 +1,42 @@
+[
+  {
+    "id": "1000",
+    "date": "10/15",
+    "description": "Crossroads",
+    "amount": "52.21",
+    "category": "",
+    "isDuplicate": false
+  },
+  {
+    "id": "1001",
+    "date": "10/14",
+    "description": "Lowe's",
+    "amount": "1025.99",
+    "category": "104",
+    "isDuplicate": false
+  },
+  {
+    "id": "1002",
+    "date": "10/12",
+    "description": "Income",
+    "amount": "2250.00",
+    "category": "105",
+    "isDuplicate": false
+  },
+  {
+    "id": "1003",
+    "date": "10/12",
+    "description": "Menards",
+    "amount": "46.45",
+    "category": "",
+    "isDuplicate": true
+  },
+  {
+    "id": "1004",
+    "date": "10/12",
+    "description": "Menards",
+    "amount": "46.45",
+    "category": "",
+    "isDuplicate": true
+  }
+]
