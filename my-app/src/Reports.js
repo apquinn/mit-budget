@@ -3,6 +3,94 @@ import React from "react";
 import axios from "axios";
 import { useSearchParams } from "react-router-dom";
 import { format } from "date-fns";
+import HeaderLinks from "./HeaderLinks.js";
+
+function Header() {
+  return (
+    <div className="header-wrapper">
+      <h1>Reports</h1>
+      <HeaderLinks />
+    </div>
+  );
+}
+
+function DateRangeDropDownCat({ data, setDateCat }) {
+  let found = false;
+  const onChangeHandler = (event) => {
+    let e = document.getElementById(event.target.id);
+    setDateCat(e.options[e.selectedIndex].text);
+    alert("Cat change: " + e.options[e.selectedIndex].text);
+  };
+
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const loadOptions = () => {
+    let result = data.map((item) => {
+      if (
+        searchParams.get("dateCat") != null &&
+        item.category == searchParams.get("dateCat")
+      ) {
+        setDateCat(item.category);
+        return (
+          <option value={item.id} selected>
+            {item.category}
+          </option>
+        );
+      } else {
+        return <option value={item.id}>{item.category}</option>;
+      }
+    });
+    return result;
+  };
+
+  return (
+    <div className="date-item-wrapper">
+      <label
+        key="DateSelectCat-Label"
+        htmlFor="DateSelectCat"
+        className="label top-padding"
+      >
+        Select Group
+        <select
+          id="DateSelectCat"
+          name="DateSelectCat"
+          key="DateSelectCat"
+          className="form-control"
+          onChange={onChangeHandler}
+        >
+          {loadOptions()}
+        </select>
+      </label>
+    </div>
+  );
+}
+
+function DateRangeDropDownDates({ dataReport, setDateFrom, setDateTo }) {
+  const onChangeHandlerDate = (event) => {
+    let e = document.getElementById(event.target.id);
+    if (event.target.id == "dateSelectFrom")
+      setDateFrom(e.options[e.selectedIndex].text);
+    else setDateTo(e.options[e.selectedIndex].text);
+    alert("Date change: " + e.options[e.selectedIndex].text);
+  };
+
+  return (
+    <>
+      <DateRangeDropDownItem
+        data={dataReport}
+        id="dateSelectFrom"
+        setDate={setDateFrom}
+        onChangeHandler={onChangeHandlerDate}
+      />
+      <DateRangeDropDownItem
+        data={dataReport}
+        id="dateSelectTo"
+        setDate={setDateTo}
+        onChangeHandler={onChangeHandlerDate}
+      />
+    </>
+  );
+}
 
 function BarGraphMonthsBar({ className, amount, highest }) {
   return (
@@ -15,15 +103,10 @@ function BarGraphMonthsBar({ className, amount, highest }) {
   );
 }
 
-function BarGraphMonths({ data, highest }) {
+function BarGraphMonths({ data, highest, dateFrom, dateTo }) {
   let itemDate = "";
-  let e = document.getElementById("dateSelectFrom");
-  let textFrom = e.options[e.selectedIndex].text;
-  textFrom = Date.parse(textFrom);
-
-  e = document.getElementById("dateSelectTo");
-  let textTo = e.options[e.selectedIndex].text;
-  textTo = Date.parse(textTo);
+  let textFrom = Date.parse(dateFrom);
+  let textTo = Date.parse(dateTo);
 
   return data.map((item, index) => {
     itemDate = Date.parse(item.date);
@@ -94,122 +177,63 @@ function BarGraphTotal({
   );
 }
 
-function DateRangeDropDownItem({ data, id, type, onChangeHandler }) {
-  let currentDate = "";
-  let lastOption = null;
-  let found = false;
-  let firstCat = true;
-  const element = document.getElementById(id);
-  const [searchParams, setSearchParams] = useSearchParams();
-  if (element == null) {
-    var selectList = document.createElement("select");
-    selectList.id = id;
-    selectList.onchange = onChangeHandler;
-    document.getElementById("dates").appendChild(selectList);
+function DateRangeDropDownItem({ data, id, setDate, onChangeHandler }) {
+  let currentDateMonth = "";
+  let currentDateYear = "";
+  let dateToFind = "";
+  let label = "From";
 
-    let first = "";
-    data.map((item) => {
-      if (first == "") first = item.date;
-    });
-
-    data.map((item, index) => {
-      var option = document.createElement("option");
-      option.value = index;
-      if (type == "cat") {
-        option.text = item.category;
-        if (
-          searchParams.get("category") != null &&
-          item.category == searchParams.get("category")
-        )
-          option.selected = true;
-        if (firstCat && searchParams.get("category") == null) {
-          option.selected = true;
-        }
-        firstCat = false;
-      } else {
-        if (type == "dateFrom") {
-          currentDate = String(Number(format(new Date(), "yyyy")) - 1);
-          currentDate =
-            String(Number(format(new Date(), "M")) + 1) + "/1/" + currentDate;
-          option.text = item.date;
-          if (currentDate == item.date) option.selected = true;
-        } else {
-          currentDate = format(new Date(), "M/1/yyyy");
-          option.text = item.date;
-          if (currentDate == item.date) {
-            option.selected = true;
-            found = true;
-          }
-          lastOption = option;
-        }
-      }
-
-      selectList.appendChild(option);
-    });
-
-    if (!found && type == "dateTo") lastOption.selected = true;
+  if (id == "dateSelectFrom") {
+    currentDateMonth = format(new Date(), "M");
+    currentDateYear = String(Number(format(new Date(), "yyyy")) - 1);
+    dateToFind = currentDateMonth + "/1/" + currentDateYear;
+  } else {
+    currentDateMonth = format(new Date(), "M");
+    currentDateYear = format(new Date(), "yyyy");
+    dateToFind = currentDateMonth + "/1/" + currentDateYear;
+    label = "To";
   }
-}
+  setDate(dateToFind);
 
-function DateRangeDropDownCat({ url, setUrl, dataCat }) {
-  const onChangeHandlerCat = () => {
-    let e = document.getElementById("dateSelectCat");
-    let extension = e.options[e.selectedIndex].text;
-    setUrl(url + "&" + extension);
+  const loadOptions = () => {
+    let result = data.map((item) => {
+      if (item.date == dateToFind)
+        return (
+          <option value={item.date} selected>
+            {item.date}
+          </option>
+        );
+      else return <option value={item.date}>{item.date}</option>;
+    });
+    return result;
   };
 
   return (
-    <>
-      <DateRangeDropDownItem
-        data={dataCat}
-        id="dateSelectCat"
-        type="cat"
-        onChangeHandler={onChangeHandlerCat}
-      />
-    </>
+    <div className="date-item-wrapper">
+      <label key={id + "-Label"} htmlFor={id} className="label top-padding">
+        {label}
+        <select
+          id={id}
+          name={id}
+          key={id}
+          className="form-control"
+          onChange={onChangeHandler}
+        >
+          {loadOptions()}
+        </select>
+      </label>
+    </div>
   );
 }
 
-function DateRangeDropDown({ url, setUrl, dataReport }) {
-  const onChangeHandlerDate = (event) => {
-    var e = document.getElementById(event.target.id);
-    var text = e.options[e.selectedIndex].text;
-
-    if (event.target.id == "dateSelectFrom") setUrl(url + "&fromDate" + text);
-    if (event.target.id == "dateSelectTo") setUrl(url + "&toDate" + text);
-  };
-
-  return (
-    <>
-      <DateRangeDropDownItem
-        data={dataReport}
-        id="dateSelectFrom"
-        type="dateFrom"
-        onChangeHandler={onChangeHandlerDate}
-      />
-      <DateRangeDropDownItem
-        data={dataReport}
-        id="dateSelectTo"
-        type="dateTo"
-        onChangeHandler={onChangeHandlerDate}
-      />
-    </>
-  );
-}
-
-function BarGraph({ data }) {
+function BarGraph({ data, dateCat, dateFrom, dateTo }) {
   let highest = 0;
   let highestTotal = 0;
   let totalCurrent = 0;
   let totalBudget = 0;
 
-  let e = document.getElementById("dateSelectFrom");
-  let textFrom = e.options[e.selectedIndex].text;
-  textFrom = Date.parse(textFrom);
-
-  e = document.getElementById("dateSelectTo");
-  let textTo = e.options[e.selectedIndex].text;
-  textTo = Date.parse(textTo);
+  let textFrom = Date.parse(dateFrom);
+  let textTo = Date.parse(dateTo);
 
   data.map((item) => {
     if (Date.parse(item.date) >= textFrom && Date.parse(item.date) <= textTo) {
@@ -221,42 +245,73 @@ function BarGraph({ data }) {
   });
 
   highestTotal = totalCurrent > totalBudget ? totalCurrent : totalBudget;
-  e = document.getElementById("dateSelectCat");
 
   return (
     <>
-      <BarGraphMonths data={data} highest={highest} />
+      <BarGraphMonths
+        data={data}
+        highest={highest}
+        dateFrom={dateFrom}
+        dateTo={dateTo}
+      />
       <BarGraphTotal
         highestTotal={highestTotal}
         totalCurrent={totalCurrent}
         totalBudget={totalBudget}
-        categoryName={e.options[e.selectedIndex].text}
+        categoryName={dateCat}
       />
     </>
   );
 }
 
 export default function Reports() {
-  const [url, setUrl] = useState("http://localhost:3000/dataReport.json?");
   const [data, setData] = useState(null);
   const [dataCat, setDataCat] = useState();
 
+  const [dateFrom, setDateFrom] = useState("");
+  const [dateTo, setDateTo] = useState("");
+  const [dateCat, setDateCat] = useState("");
+
+  let baseURLReport = `http://localhost:3000/dataReport.json?dateCat="${dateCat}&dateFrom="${dateFrom}&dateTo="${dateTo}`;
+
   let baseURLCat = "http://localhost:3000/dataCategories.json";
   React.useEffect(() => {
-    axios.get(url).then((response) => {
+    axios.get(baseURLReport).then((response) => {
       setData(response.data);
     });
     axios.get(baseURLCat).then((response) => {
       setDataCat(response.data);
     });
-  }, [url]);
+  }, [dateFrom, dateTo, dateCat]);
   if (!data) return "error data";
+
+  let localDateCat = dateCat;
+  if (localDateCat == "") localDateCat = dataCat[0].category;
 
   return (
     <>
-      <DateRangeDropDownCat url={url} setUrl={setUrl} dataCat={dataCat} />
-      <DateRangeDropDown url={url} setUrl={setUrl} dataReport={data} />
-      <BarGraph data={data} />;
+      <Header />
+      <div
+        id="ReportDatesWrapper"
+        key="ReportDatesWrapper"
+        className="report-dates-well left-indent card card-body bg-light"
+      >
+        <div key="ReportDatesWell">
+          <DateRangeDropDownCat data={dataCat} setDateCat={setDateCat} />
+          <DateRangeDropDownDates
+            dataReport={data}
+            setDateFrom={setDateFrom}
+            setDateTo={setDateTo}
+          />
+        </div>
+      </div>
+      <BarGraph
+        data={data}
+        dateCat={localDateCat}
+        dateFrom={dateFrom}
+        dateTo={dateTo}
+      />
+      ;
     </>
   );
 }

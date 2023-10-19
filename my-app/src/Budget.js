@@ -1,15 +1,252 @@
 import { useState } from "react";
 import React from "react";
 import axios from "axios";
+import HeaderLinks from "./HeaderLinks.js";
+import Transfer from "./Transfer.js";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 function Header() {
   return (
     <div className="header-wrapper">
       <h1>Budget</h1>
-      <div className="header-links">
-        <a href="./UploadBalances">Upload balances</a>&nbsp;&nbsp;
-        <a href="./reports">Reports</a>
-      </div>{" "}
+      <HeaderLinks />
+    </div>
+  );
+}
+
+function ManageGroups() {
+  let baseURL = "http://localhost:3000/dataManageGroups.json";
+  const [data, setData] = useState(null);
+  React.useEffect(() => {
+    axios.get(baseURL).then((response) => {
+      setData(response.data);
+    });
+  }, [baseURL]);
+
+  if (!data) return "error";
+
+  const handleGroupDelete = (event) => {
+    alert("delete id:" + event.target.id);
+  };
+
+  const handleGroupEdit = (event) => {
+    alert("edit id:" + event.target.id);
+  };
+  const handleManageGroupAdd = (event) => {
+    alert("add group");
+  };
+
+  return (
+    <>
+      <div id="ManageGroups" key="ManageGroups" className="is-hidden">
+        <div
+          key="ManageGroupsWell"
+          className="top-margin left-indent card card-body bg-light"
+        >
+          {data.map((item) => {
+            return (
+              <>
+                <div key={"GroupRow-" + item.id} className="row">
+                  <div
+                    key={"GroupWrapper-" + item.id}
+                    className="manage-groups-item-wrapper"
+                  >
+                    <button
+                      id={"GroupDelete-" + item.id}
+                      key={"GroupDelete-" + item.id}
+                      className="button-href"
+                      onClick={handleGroupDelete}
+                    >
+                      delete
+                    </button>
+                    <button
+                      id={"GroupEdit-" + item.id}
+                      key={"GroupEdit-" + item.id}
+                      className="button-href"
+                      onClick={handleGroupEdit}
+                    >
+                      edit
+                    </button>
+                    &nbsp;&nbsp;
+                    {item.name}
+                  </div>
+                </div>
+              </>
+            );
+          })}
+          <div
+            key="ManageGroupInputWrapper"
+            className="manage-groups-input-wrapper"
+          >
+            <div className="manage-group-item-wrapper">
+              <label
+                key="ManageGroup-Label"
+                htmlFor="ManageGroup-Submit"
+                className="label top-padding"
+              >
+                New Group
+                <input
+                  type="text"
+                  id="ManageGroups-Input"
+                  key="ManageGroups-Input"
+                  className="form-control"
+                />
+              </label>
+            </div>
+            <div className="manage-group-item-wrapper">
+              <button
+                type="submit"
+                id="ManageGroup-Submit"
+                key="ManageGroup-Submit"
+                className="form-control"
+                onClick={handleManageGroupAdd}
+              >
+                add
+              </button>
+            </div>
+          </div>
+          <div
+            id="ManageGroups-Note"
+            key="ManageGroups-Note"
+            className="manage-groups-note"
+          >
+            Note: Deleting a group does not delete the envelopes within the
+            group.
+          </div>
+        </div>
+      </div>
+    </>
+  );
+}
+function AddEnvelope() {
+  let baseURL = "http://localhost:3000/dataManageGroups.json";
+  const [data, setData] = useState(null);
+  React.useEffect(() => {
+    axios.get(baseURL).then((response) => {
+      setData(response.data);
+    });
+  }, [baseURL]);
+
+  if (!data) return "error";
+
+  const handleAddEnvelopeAdd = (event) => {
+    alert("add envelope");
+  };
+
+  return (
+    <>
+      <div id="AddEnvelope" key="AddEnvelope" className="is-hidden ">
+        <div className="top-margin left-indent card card-body bg-light">
+          <div className="add-envelope-input-wrapper">
+            <div className="add-envelope-item-wrapper">
+              <label className="label">
+                New Envelope
+                <input
+                  type="text"
+                  id="AddEnvelope-Text"
+                  key="AddEnvelope-Text"
+                  className="form-control"
+                />
+              </label>
+            </div>
+            <div className="add-envelope-item-wrapper">
+              <label htmlFor="AddEnvelope-Number" className="label">
+                Amount
+                <input
+                  type="number"
+                  id="AddEnvelope-Number"
+                  key="AddEnvelope-Number"
+                  className="form-control"
+                />
+              </label>
+            </div>
+            <div className="add-envelope-item-wrapper">
+              <label htmlFor="AddEnvelope-Select" className="label">
+                Group (optional)
+                <select
+                  id="AddEnvelope-Select"
+                  name="AddEnvelope-Select"
+                  key="AddEnvelope-Select"
+                  style={{ width: "150px" }}
+                  className="form-control"
+                >
+                  <option value=""></option>
+                  {data.map((item) => {
+                    return (
+                      <option value={item.id} key={item.id}>
+                        {item.name}
+                      </option>
+                    );
+                  })}
+                </select>
+              </label>
+            </div>
+            <div className="add-envelope-item-wrapper">
+              <button
+                type="submit"
+                id="AddEnvelope-Submit"
+                key="AddEnvelope-Submit"
+                className="form-control"
+                onClick={handleAddEnvelopeAdd}
+              >
+                add
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </>
+  );
+}
+
+function ManageWells(toToggle) {
+  if (toToggle != "ManageGroups")
+    document.getElementById("ManageGroups").classList.add("is-hidden");
+
+  if (toToggle != "AddEnvelope")
+    document.getElementById("AddEnvelope").classList.add("is-hidden");
+
+  if (toToggle != "Transfer")
+    document.getElementById("Transfer").classList.add("is-hidden");
+
+  let e = document.getElementById(toToggle);
+  if (e.classList.contains("is-hidden")) e.classList.remove("is-hidden");
+  else e.classList.add("is-hidden");
+}
+
+function Subheader() {
+  const handleManageGroups = () => {
+    ManageWells("ManageGroups");
+  };
+  const handleAddEnvelope = () => {
+    ManageWells("AddEnvelope");
+  };
+  const handleTransfer = () => {
+    ManageWells("Transfer");
+  };
+
+  return (
+    <div key="Subheader-Wrapper" className="subheader-wrapper">
+      <div key="Subheader-Buttons" className="subheader-buttons">
+        <button key="Subheader-Groups" onClick={handleManageGroups}>
+          manage groups
+        </button>
+        &nbsp;&nbsp;
+        <button key="Subheader-AddEnvelope" onClick={handleAddEnvelope}>
+          add envelope
+        </button>
+        &nbsp;&nbsp;
+        <button key="Subheader-Transfer" onClick={handleTransfer}>
+          transfer
+        </button>
+        &nbsp;&nbsp;
+      </div>
+      <div key="Subheader-SubItems" className="subItems finances-well">
+        <ManageGroups />
+        <AddEnvelope />
+        <Transfer />
+      </div>
     </div>
   );
 }
@@ -29,6 +266,7 @@ function Items({ originalData }) {
     return (
       <Item
         id={item.id}
+        key={item.id}
         title={item.title}
         currentBalance={item.current}
         budgetBalance={item.budget}
@@ -185,6 +423,7 @@ function BudgetSection({ originalData }) {
   return (
     <div>
       <Header />
+      <Subheader />
       <Items originalData={originalData} />
       <Footer />
     </div>

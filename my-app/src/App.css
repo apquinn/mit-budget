@@ -1,5 +1,51 @@
+.label {
+  font-weight: bold;
+}
+.is-hidden {
+  display: none;
+}
+.top-margin {
+  margin-top: 10px;
+}
+.button-href {
+  border: none;
+  color: black;
+  text-align: center;
+  text-decoration: underline;
+  display: inline-block;
+  font-size: 16px;
+  cursor: pointer;
+}
+input,
+select,
+label,
+.date-picker {
+  display: block;
+}
+.add-envelope-item-wrapper,
+.transfer-item-wrapper,
+.filters-item-wrapper {
+  display: inline-block;
+  padding-right: 10px;
+}
+.import-item-wrapper {
+  margin-bottom: 20px;
+}
+.react-datepicker-wrapper {
+  display: block;
+}
+.manage-group-item-wrapper {
+  display: inline-block;
+}
+.report-dates-well {
+  margin: 0px 10px 0px 10px;
+}
+/************ Budget ***********/
 .header-wrapper {
   margin: 0px 0px 20px 10px;
+}
+.subheader-wrapper {
+  margin: 0px 10px 20px 10px;
 }
 .title-wrapper {
   margin: 15px 50px 0px 10px;
@@ -32,6 +78,13 @@
 }
 .footer-wrapper {
   margin: 20px 0px 0px 10px;
+}
+
+.manage-groups-input-wrapper {
+  margin-top: 10px;
+}
+.manage-groups-note {
+  margin-top: 10px;
 }
 
 /********** REPORTS **********/
@@ -103,4 +156,17 @@
 #dates {
   text-align: center;
   margin-top: 25px;
+}
+.date-item-wrapper {
+  display: inline-block;
+}
+
+/************* TRANSACTIONS *************/
+
+.it-date,
+.it-description,
+.it-amount,
+.category-wrapper,
+.it-dup {
+  display: inline-block;
 }
