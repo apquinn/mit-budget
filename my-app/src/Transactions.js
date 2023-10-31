@@ -18,6 +18,7 @@ function Header() {
 function Import() {
   const handleImport = (event) => {
     alert("add import");
+    event.preventDefault();
   };
 
   return (
@@ -32,6 +33,7 @@ function Import() {
                   <input
                     type="file"
                     id="Import-File-Chase"
+                    class="input-for-upload"
                     name="Import-File-Chase"
                   />
                 </label>
@@ -42,6 +44,7 @@ function Import() {
                   <input
                     type="file"
                     id="Import-File-Incredible"
+                    class="input-for-upload"
                     name="Import-File-Incredible"
                   />
                 </label>
@@ -66,11 +69,27 @@ function Import() {
   );
 }
 
-function Filters({ dataCat, data, setData }) {
-  const handleSelectChange = (event) => {
-    document.getElementById("Filters-Text").value = "";
+function Filters({ dataCat, data, setData, origData }) {
+  const handleSelectChange = () => {
+    let localData = [];
     let value = document.getElementById("Filters-Select").value;
-    let localData = data.filter((item) => item.category === value);
+    if (value !== "") {
+      localData = origData.filter(
+        (item) =>
+          item.category === value &&
+          item.description
+            .toLowerCase()
+            .includes(
+              document.getElementById("Filters-Text").value.toLowerCase()
+            )
+      );
+    } else {
+      localData = origData.filter((item) =>
+        item.description
+          .toLowerCase()
+          .includes(document.getElementById("Filters-Text").value.toLowerCase())
+      );
+    }
     setData(localData);
   };
 
@@ -87,6 +106,7 @@ function Filters({ dataCat, data, setData }) {
                   id="Filters-Text"
                   key="Filters-Text"
                   className="form-control"
+                  onChange={handleSelectChange}
                 />
               </label>
             </div>
@@ -134,15 +154,34 @@ function ManageWells(toToggle) {
   else e.classList.add("is-hidden");
 }
 
-function Subheader({ dataCat, data, setData }) {
+function Subheader({ dataCat, data, setData, origData }) {
   const handleImport = () => {
     ManageWells("Import");
   };
   const handleUncat = () => {
-    let localData = data.filter((item) => item.category === "");
-    setData(localData);
+    setData(origData);
+    if (
+      document.getElementById("Subheader-Uncatagorized").innerHTML ==
+      "uncategorized"
+    ) {
+      document.getElementById("Subheader-Uncatagorized").innerHTML = "show all";
+      let localData = data.filter((item) => item.category === "");
+      setData(localData);
+    } else {
+      document.getElementById("Subheader-Uncatagorized").innerHTML =
+        "uncategorized";
+    }
   };
   const handleFilters = () => {
+    setData(origData);
+    if (document.getElementById("Subheader-Filters").innerHTML == "filters") {
+      document.getElementById("Subheader-Filters").innerHTML = "show all";
+    } else {
+      document.getElementById("Subheader-Filters").innerHTML = "filters";
+      document.getElementById("Filters-Select").selectedIndex = 0;
+      document.getElementById("Filters-Text").value = "";
+    }
+
     ManageWells("Filters");
   };
   const handleTransfer = () => {
@@ -156,11 +195,19 @@ function Subheader({ dataCat, data, setData }) {
           import
         </button>
         &nbsp;&nbsp;
-        <button key="Subheader-Uncatagorized" onClick={handleUncat}>
-          uncatagorized
+        <button
+          id="Subheader-Uncatagorized"
+          key="Subheader-Uncatagorized"
+          onClick={handleUncat}
+        >
+          uncategorized
         </button>
         &nbsp;&nbsp;
-        <button key="Subheader-Filters" onClick={handleFilters}>
+        <button
+          id="Subheader-Filters"
+          key="Subheader-Filters"
+          onClick={handleFilters}
+        >
           filters
         </button>
         &nbsp;&nbsp;
@@ -172,7 +219,12 @@ function Subheader({ dataCat, data, setData }) {
       <div key="Subheader-SubItems" className="subItems">
         <Transfer />
         <Import />
-        <Filters dataCat={dataCat} data={data} setData={setData} />
+        <Filters
+          dataCat={dataCat}
+          data={data}
+          setData={setData}
+          origData={origData}
+        />
       </div>
     </div>
   );
@@ -180,6 +232,9 @@ function Subheader({ dataCat, data, setData }) {
 
 function Category({ category, id, dataCat }) {
   let selected = "";
+  const handleCatChange = (event) => {
+    alert("Cat change for " + event.target.id);
+  };
   return (
     <>
       <div className="col-md-2 category-wrapper">
@@ -189,14 +244,13 @@ function Category({ category, id, dataCat }) {
           key={"Category-Select-" + id}
           style={{ width: "150px" }}
           className="form-control"
+          onChange={handleCatChange}
+          defaultValue={category}
         >
           <option key={"empty" + id} value=""></option>
           {dataCat.map((item) => {
-            {
-              selected = item.id === category ? "selected" : "";
-            }
             return (
-              <option value={item.id} key={item.id} selected={selected}>
+              <option value={item.id} key={item.id}>
                 {item.category}
               </option>
             );
@@ -214,16 +268,23 @@ function IndividualTransactions({ dataCat, data }) {
   let isDup = "";
   return (
     <>
-      <container>
+      <div key="Container" className="container">
         {data.map((item) => {
           return (
             <>
-              <div className="row individual-transaction-wrapper">
-                <div className="col-md-1 it-date">{item.date}</div>
-                <div className="col-md-4 it-description">
+              <div
+                key="IndividualTransactionWrapper"
+                className="row individual-transaction-wrapper"
+              >
+                <div key="ItDate" className="col-md-1 it-date">
+                  {item.date}
+                </div>
+                <div key="ItDescription" className="col-md-4 it-description">
                   {item.description}
                 </div>
-                <div className="col-md-1 it-amount">{item.amount}</div>
+                <div key="ItAmount" className="col-md-1 it-amount">
+                  {item.amount}
+                </div>
                 <Category
                   category={item.category}
                   id={item.id}
@@ -234,6 +295,7 @@ function IndividualTransactions({ dataCat, data }) {
                     item.isDuplicate === true ? (
                       <button
                         onClick={() => handleDuplicate(item.id)}
+                        key="ItDup"
                         className="col-md-2 it-dup"
                       >
                         mark as duplicate
@@ -246,7 +308,7 @@ function IndividualTransactions({ dataCat, data }) {
             </>
           );
         })}
-      </container>{" "}
+      </div>{" "}
     </>
   );
 }
@@ -260,12 +322,14 @@ export default function Transactions() {
   );
   const [dataCat, setDataCat] = useState(null);
   const [data, setData] = useState(null);
+  const [origData, setOrigData] = useState(null);
   React.useEffect(() => {
     axios.get(baseURLCat).then((response) => {
       setDataCat(response.data);
     });
     axios.get(baseURL).then((response) => {
       setData(response.data);
+      setOrigData(response.data.slice());
     });
   }, [baseURL, baseURLCat]);
 
@@ -275,7 +339,12 @@ export default function Transactions() {
   return (
     <>
       <Header />
-      <Subheader dataCat={dataCat} data={data} setData={setData} />
+      <Subheader
+        dataCat={dataCat}
+        data={data}
+        setData={setData}
+        origData={origData}
+      />
       <IndividualTransactions dataCat={dataCat} data={data} />
     </>
   );

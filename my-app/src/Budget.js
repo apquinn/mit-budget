@@ -352,31 +352,38 @@ function Item({
   if (edit) {
     titleField = (
       <>
-        <input
-          type="text"
-          id={id + "TitleEdit"}
-          key={id + "TitleEdit"}
-          defaultValue={title}
-          size="30"
-        />
-        <button
-          type="submit"
-          id={id + "TitleSave"}
-          key={id + "TitleSave"}
-          onClick={(event) => saveEdit(event)}
-        >
-          save
-        </button>
+        <div className="item-wrapper">
+          <input
+            type="text"
+            id={id + "TitleEdit"}
+            key={id + "TitleEdit"}
+            className="title-edit"
+            defaultValue={title}
+            size="30"
+          />
+        </div>
+        <div className="item-wrapper">
+          <input
+            type="number"
+            className="budget-edit"
+            id={id + "BudgetEdit"}
+            key={id + "BudgetEdit"}
+            defaultValue={budgetBalance}
+            style={{ width: "85px" }}
+          />
+        </div>
+        <div className="item-wrapper">
+          <button
+            type="submit"
+            className="title-button"
+            id={id + "TitleSave"}
+            key={id + "TitleSave"}
+            onClick={(event) => saveEdit(event)}
+          >
+            save
+          </button>
+        </div>
       </>
-    );
-    budgetBalanceField = (
-      <input
-        type="number"
-        id={id + "BudgetEdit"}
-        key={id + "BudgetEdit"}
-        defaultValue={budgetBalance}
-        style={{ width: "70px" }}
-      />
     );
   } else {
     titleField = title;
@@ -392,7 +399,6 @@ function Item({
   const handleDeleteClick = (event) => {
     let localAccount = data.slice();
     localAccount.splice(arrayIndex, 1);
-    console.log(localAccount);
     setData(localAccount);
     event.preventDefault();
   };

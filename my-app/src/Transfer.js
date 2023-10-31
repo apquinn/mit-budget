@@ -43,6 +43,7 @@ export default function Transfer() {
                   id="Transfer-Number"
                   key="Transfer-Number"
                   className="form-control"
+                  style={{ width: "100px" }}
                 />
               </label>
             </div>
@@ -53,7 +54,7 @@ export default function Transfer() {
                   id="Transfer-Select"
                   name="Transfer-Select"
                   key="Transfer-Select"
-                  style={{ width: "150px" }}
+                  style={{ width: "170px" }}
                   className="form-control"
                 >
                   <option value="" key="Transfer-Select-Blank"></option>
@@ -74,7 +75,7 @@ export default function Transfer() {
                   id="Transfer-Select"
                   name="Transfer-Select"
                   key="Transfer-Select"
-                  style={{ width: "150px" }}
+                  style={{ width: "170px" }}
                   className="form-control"
                 >
                   <option value=""></option>

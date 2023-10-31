@@ -20,11 +20,12 @@ input,
 select,
 label,
 .date-picker {
-  display: block;
+  display: inline-block;
 }
 .add-envelope-item-wrapper,
 .transfer-item-wrapper,
-.filters-item-wrapper {
+.filters-item-wrapper,
+.item-wrapper {
   display: inline-block;
   padding-right: 10px;
 }
