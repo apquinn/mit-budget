@@ -3,7 +3,6 @@ import React from "react";
 import axios from "axios";
 import HeaderLinks from "./HeaderLinks.js";
 import Transfer from "./Transfer.js";
-import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
 function Header() {

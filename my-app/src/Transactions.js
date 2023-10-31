@@ -3,7 +3,6 @@ import React from "react";
 import axios from "axios";
 import HeaderLinks from "./HeaderLinks.js";
 import Transfer from "./Transfer.js";
-import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
 function Header() {
@@ -161,7 +160,7 @@ function Subheader({ dataCat, data, setData, origData }) {
   const handleUncat = () => {
     setData(origData);
     if (
-      document.getElementById("Subheader-Uncatagorized").innerHTML ==
+      document.getElementById("Subheader-Uncatagorized").innerHTML ===
       "uncategorized"
     ) {
       document.getElementById("Subheader-Uncatagorized").innerHTML = "show all";
@@ -174,7 +173,7 @@ function Subheader({ dataCat, data, setData, origData }) {
   };
   const handleFilters = () => {
     setData(origData);
-    if (document.getElementById("Subheader-Filters").innerHTML == "filters") {
+    if (document.getElementById("Subheader-Filters").innerHTML === "filters") {
       document.getElementById("Subheader-Filters").innerHTML = "show all";
     } else {
       document.getElementById("Subheader-Filters").innerHTML = "filters";
@@ -231,7 +230,6 @@ function Subheader({ dataCat, data, setData, origData }) {
 }
 
 function Category({ category, id, dataCat }) {
-  let selected = "";
   const handleCatChange = (event) => {
     alert("Cat change for " + event.target.id);
   };
@@ -265,7 +263,6 @@ function IndividualTransactions({ dataCat, data }) {
   const handleDuplicate = (id) => {
     alert("Mark duplicate: " + id);
   };
-  let isDup = "";
   return (
     <>
       <div key="Container" className="container">
@@ -290,20 +287,17 @@ function IndividualTransactions({ dataCat, data }) {
                   id={item.id}
                   dataCat={dataCat}
                 />
-                {
-                  (isDup =
-                    item.isDuplicate === true ? (
-                      <button
-                        onClick={() => handleDuplicate(item.id)}
-                        key="ItDup"
-                        className="col-md-2 it-dup"
-                      >
-                        mark as duplicate
-                      </button>
-                    ) : (
-                      ""
-                    ))
-                }
+                {item.isDuplicate === true ? (
+                  <button
+                    onClick={() => handleDuplicate(item.id)}
+                    key="ItDup"
+                    className="col-md-2 it-dup"
+                  >
+                    mark as duplicate
+                  </button>
+                ) : (
+                  ""
+                )}
               </div>
             </>
           );
@@ -314,12 +308,8 @@ function IndividualTransactions({ dataCat, data }) {
 }
 
 export default function Transactions() {
-  const [baseURLCat, setBaseURLCat] = useState(
-    "http://localhost:3000/dataCategories.json"
-  );
-  const [baseURL, setBaseURL] = useState(
-    "http://localhost:3000/dataTransactions.json"
-  );
+  const [baseURLCat] = useState("http://localhost:3000/dataCategories.json");
+  const [baseURL] = useState("http://localhost:3000/dataTransactions.json");
   const [dataCat, setDataCat] = useState(null);
   const [data, setData] = useState(null);
   const [origData, setOrigData] = useState(null);

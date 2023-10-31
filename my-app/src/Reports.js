@@ -15,14 +15,13 @@ function Header() {
 }
 
 function DateRangeDropDownCat({ data, setDateCat }) {
-  let found = false;
   const onChangeHandler = (event) => {
     let e = document.getElementById(event.target.id);
     setDateCat(e.options[e.selectedIndex].text);
     alert("Cat change: " + e.options[e.selectedIndex].text);
   };
 
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
 
   const loadOptions = () => {
     let result = data.map((item) => {
@@ -129,7 +128,7 @@ function BarGraphMonths({ data, highest, dateFrom, dateTo }) {
           </div>
         </div>
       );
-    }
+    } else return <></>;
   });
 }
 
@@ -242,6 +241,7 @@ function BarGraph({ data, dateCat, dateFrom, dateTo }) {
     }
     totalCurrent += item.current;
     totalBudget += item.budget;
+    return <></>;
   });
 
   highestTotal = totalCurrent > totalBudget ? totalCurrent : totalBudget;
@@ -275,14 +275,14 @@ export default function Reports() {
   let baseURLReport = `http://localhost:3000/dataReport.json?dateCat="${dateCat}&dateFrom="${dateFrom}&dateTo="${dateTo}`;
 
   let baseURLCat = "http://localhost:3000/dataCategories.json";
-  React.useEffect(() => {
+  useEffect(() => {
     axios.get(baseURLReport).then((response) => {
       setData(response.data);
     });
     axios.get(baseURLCat).then((response) => {
       setDataCat(response.data);
     });
-  }, [dateFrom, dateTo, dateCat]);
+  }, [dateFrom, dateTo, dateCat, baseURLCat, baseURLReport]);
   if (!data) return "error data";
 
   let localDateCat = dateCat;
