@@ -32,7 +32,8 @@ function Import() {
                   <input
                     type="file"
                     id="Import-File-Chase"
-                    class="input-for-upload"
+                    key="Import-File-Chase"
+                    className="input-for-upload"
                     name="Import-File-Chase"
                   />
                 </label>
@@ -43,7 +44,8 @@ function Import() {
                   <input
                     type="file"
                     id="Import-File-Incredible"
-                    class="input-for-upload"
+                    key="Import-File-Incredible"
+                    className="input-for-upload"
                     name="Import-File-Incredible"
                   />
                 </label>
@@ -235,7 +237,7 @@ function Category({ category, id, dataCat }) {
   };
   return (
     <>
-      <div className="col-md-2 category-wrapper">
+      <div key={"Category-Wrapper-" + id} className="col-md-2 category-wrapper">
         <select
           id={"Category-Select-" + id}
           name={"Category-Select-" + id}
@@ -270,16 +272,19 @@ function IndividualTransactions({ dataCat, data }) {
           return (
             <>
               <div
-                key="IndividualTransactionWrapper"
+                key={"IndividualTransactionWrapper" + item.id}
                 className="row individual-transaction-wrapper"
               >
-                <div key="ItDate" className="col-md-1 it-date">
+                <div key={"ItDate" + item.id} className="col-md-1 it-date">
                   {item.date}
                 </div>
-                <div key="ItDescription" className="col-md-4 it-description">
+                <div
+                  key={"ItDescription" + item.id}
+                  className="col-md-4 it-description"
+                >
                   {item.description}
                 </div>
-                <div key="ItAmount" className="col-md-1 it-amount">
+                <div key={"ItAmount" + item.id} className="col-md-1 it-amount">
                   {item.amount}
                 </div>
                 <Category
@@ -290,7 +295,7 @@ function IndividualTransactions({ dataCat, data }) {
                 {item.isDuplicate === true ? (
                   <button
                     onClick={() => handleDuplicate(item.id)}
-                    key="ItDup"
+                    key={"ItDup" + item.id}
                     className="col-md-2 it-dup"
                   >
                     mark as duplicate
