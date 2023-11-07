@@ -2,12 +2,6 @@ import { Link } from "react-router-dom";
 import { useEffect } from "react";
 
 export default function HeaderLinks() {
-  /*
-	$(".nav a").on("click", function () {
-  $(".nav").find(".active").removeClass("active");
-  $(this).parent().addClass("active");
-});
-*/
   useEffect(() => {
     console.log(window.location.pathname);
     document.getElementById("headerTransactions").classList.remove("active");

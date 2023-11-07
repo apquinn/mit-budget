@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import React from "react";
 import axios from "axios";
-import HeaderLinks from "./HeaderLinks.js";
-import Transfer from "./Transfer.js";
+import HeaderLinks from "./Components/HeaderLinks.js";
+import Transfer from "./Components/Transfer.js";
+import { ShowProvider, ShowContext } from "./Contexts/budgetContext.js";
 import "react-datepicker/dist/react-datepicker.css";
 
 function Header() {
@@ -258,8 +259,8 @@ function Footer() {
   );
 }
 
-function Items({ originalData }) {
-  const [data, setData] = useState(originalData);
+function Items() {
+  const { data } = useContext(ShowContext);
 
   return data.map((item, index) => {
     return (
@@ -270,8 +271,6 @@ function Items({ originalData }) {
         currentBalance={item.current}
         budgetBalance={item.budget}
         arrayIndex={index}
-        setData={setData}
-        data={data}
       />
     );
   });
@@ -319,15 +318,9 @@ function Bar({ id, width }) {
   );
 }
 
-function Item({
-  id,
-  title,
-  currentBalance,
-  budgetBalance,
-  arrayIndex,
-  setData,
-  data,
-}) {
+function Item({ id, title, currentBalance, budgetBalance, arrayIndex }) {
+  const { data, setData } = useContext(ShowContext);
+
   const [edit, setEdit] = useState(false);
   let titleField = title;
   let budgetBalanceField = budgetBalance;
@@ -424,12 +417,12 @@ function Item({
   );
 }
 
-function BudgetSection({ originalData }) {
+function BudgetSection() {
   return (
     <div>
       <Header />
       <Subheader />
-      <Items originalData={originalData} />
+      <Items />
       <Footer />
     </div>
   );
@@ -446,5 +439,9 @@ export default function Budget() {
 
   if (!data) return "error";
 
-  return <BudgetSection originalData={data} />;
+  return (
+    <ShowProvider data={data} setData={setData}>
+      <BudgetSection />;
+    </ShowProvider>
+  );
 }

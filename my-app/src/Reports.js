@@ -3,7 +3,7 @@ import React from "react";
 import axios from "axios";
 import { useSearchParams } from "react-router-dom";
 import { format } from "date-fns";
-import HeaderLinks from "./HeaderLinks.js";
+import HeaderLinks from "./Components/HeaderLinks.js";
 
 function Header() {
   return (

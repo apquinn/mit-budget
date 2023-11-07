@@ -1,8 +1,8 @@
 import { useState } from "react";
 import React from "react";
 import axios from "axios";
-import HeaderLinks from "./HeaderLinks.js";
-import Transfer from "./Transfer.js";
+import HeaderLinks from "./Components/HeaderLinks.js";
+import Transfer from "./Components/Transfer.js";
 import "react-datepicker/dist/react-datepicker.css";
 
 function Header() {
